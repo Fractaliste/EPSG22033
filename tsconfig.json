@@ -24,10 +24,10 @@
     "allowJs": true,
     "paths": {
       "ol": [
-        "node_modules/ol"
+        "node_modules/ol/src"
       ],
       "ol/*": [
-        "node_modules/ol/*"
+        "node_modules/ol/src/*"
       ],
       "proj4": [
         "node_modules/proj4/lib"

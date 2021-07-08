@@ -1,15 +1,14 @@
 import { Component } from '@angular/core';
-import Map from 'ol/map';
-import View from 'ol/view';
-import TileLayer from 'ol/layer/tile';
-import VectorLayer from 'ol/layer/vector';
-import XYZ from 'ol/source/xyz';
-import VectorSource from 'ol/source/vector';
-import Point from 'ol/geom/point';
-import proj from 'ol/proj';
-import Feature from 'ol/feature';
+import { Feature } from 'ol';
+import { Map, View } from "ol";
+import { Point } from 'ol/geom';
+import { Tile as TileLayer } from "ol/layer";
+import VectorLayer from 'ol/layer/Vector';
+import { transform } from 'ol/proj';
+import { register } from 'ol/proj/proj4';
+import { XYZ } from "ol/source";
+import VectorSource from 'ol/source/Vector';
 import proj4 from 'proj4';
-import { Coordinate } from 'openlayers';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +20,7 @@ export class AppComponent {
 
   constructor() {
     proj4.defs("EPSG:22033", 'PROJCS["Camacupa_UTM_zone_33S",GEOGCS["GCS_Camacupa",DATUM["D_Camacupa",SPHEROID["Clarke_1880_RGS",6378249.145,293.465]],PRIMEM["Greenwich",0],UNIT["Degree",0.017453292519943295]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",15],PARAMETER["scale_factor",0.9996],PARAMETER["false_easting",500000],PARAMETER["false_northing",10000000],UNIT["Meter",1]]')
-    proj.setProj4(proj4)
+    register(proj4)
   }
 
   ngOnInit() {
@@ -46,8 +45,8 @@ export class AppComponent {
 
   createFeature() {
 
-    const coordinates_22033: Coordinate = [-57765, 9023905]
-    const coordinates_4326 = proj.transform(coordinates_22033, "EPSG:22033", "EPSG:4326")
+    const coordinates_22033 = [-57765, 9023905]
+    const coordinates_4326 = transform(coordinates_22033, "EPSG:22033", "EPSG:4326")
 
     var feature = new Feature({
       geometry: new Point(coordinates_22033),
@@ -55,7 +54,7 @@ export class AppComponent {
     });
     console.log(coordinates_22033)
     console.log(coordinates_4326)
-    console.log(proj.transform(coordinates_4326, "EPSG:4326", "EPSG:22033"))
+    console.log(transform(coordinates_4326, "EPSG:4326", "EPSG:22033"))
 
     return [feature]
   }
