@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Feature } from 'ol';
 import { Map, View } from "ol";
+import { Coordinate } from 'ol/coordinate';
 import { Point } from 'ol/geom';
 import { Tile as TileLayer } from "ol/layer";
 import VectorLayer from 'ol/layer/Vector';
