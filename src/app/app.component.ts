@@ -45,16 +45,16 @@ export class AppComponent {
 
   createFeature() {
 
-    const coordinates_22033 = [-57765, 9023905]
-    const coordinates_4326 = transform(coordinates_22033, "EPSG:22033", "EPSG:4326")
+    const coordinates_4326: Coordinate = [11.373611449999999, -7.36326170000001]
+    const coordinates_22033 = transform(coordinates_4326, "EPSG:4326", "EPSG:22033")
 
     var feature = new Feature({
       geometry: new Point(coordinates_22033),
       name: 'My Point'
     });
-    console.log(coordinates_22033)
-    console.log(coordinates_4326)
-    console.log(transform(coordinates_4326, "EPSG:4326", "EPSG:22033"))
+    console.log("input", coordinates_4326)
+    console.log("transformed", coordinates_22033)
+    console.log("retransformed", transform(coordinates_22033, "EPSG:22033", "EPSG:4326"))
 
     return [feature]
   }
